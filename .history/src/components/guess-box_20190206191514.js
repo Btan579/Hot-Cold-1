@@ -1,0 +1,44 @@
+import React from 'react';
+
+import GuessForm from './guess-form';
+
+export default class GuessBox extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+         userGuessList: [],
+         secretNumber: Math.floor((Math.random() * 100) + 1),
+         correctGuess: false
+        };
+    }
+
+    makeGuess(guess) {
+        this.setState({
+            userGuessList: [...this.state.userGuessList, {guess}],
+            correctGuess: this.state.secretNumber === guess
+        });
+        console.log(this.state);
+    }
+
+
+    render() {
+        
+        return (
+
+            <div className = "guess-box" >
+                <header>
+                    <nav></nav>
+                    <h1>HOT or COLD</h1>
+                </header>
+                <h2 id="feedback"></h2>
+                <section className="game">
+                   
+                        <GuessForm makeGuess={this.makeGuess} />
+                  
+                    <p>Guess # <span id="count"></span>!</p>
+                    <ul id="guessList"></ul>
+                </section> 
+            </div> 
+        );
+    }
+}
